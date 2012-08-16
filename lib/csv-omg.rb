@@ -59,22 +59,24 @@ module CsvOmg
     
     private
     def column_value(raw_value, type, conversion)
-      value = begin
-        case type.to_s
-        when 'Date'
-          Date.parse(raw_value) rescue ''
-        when 'DateTime'
-          DateTime.parse(raw_value) rescue ''
-        when 'Float'
-          Float(raw_value)    rescue 0.0
-        when 'Integer'
-          Integer(raw_value)  rescue 0
-        else
-          raw_value.to_s
+      if conversion
+        conversion.call(raw_value)
+      else
+        begin
+          case type.to_s
+          when 'Date'
+            Date.parse(raw_value) rescue ''
+          when 'DateTime'
+            DateTime.parse(raw_value) rescue ''
+          when 'Float'
+            Float(raw_value)    rescue 0.0
+          when 'Integer'
+            Integer(raw_value)  rescue 0
+          else
+            raw_value.to_s
+          end
         end
       end
-      
-      conversion ? conversion.call(value) : value
     end
     
     def create_getter(name)
