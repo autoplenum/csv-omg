@@ -49,7 +49,7 @@ module CsvOmg
     
     def col(attr, *args, &block)
       attr = attr.to_s
-      type = args.delete(([String, Float, Integer, Date, DateTime] & args).first) || String
+      type = args.delete(([String, Float, Integer, Date, DateTime, Boolean] & args).first) || String
       source = args.first || attr
       
       @_columns[attr] = Column.new(attr, source, type, block)
