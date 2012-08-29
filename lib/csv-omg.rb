@@ -65,13 +65,13 @@ module CsvOmg
         begin
           case type.to_s
           when 'Date'
-            Date.parse(raw_value) rescue ''
+            Date.parse(raw_value) rescue nil
           when 'DateTime'
-            DateTime.parse(raw_value) rescue ''
+            DateTime.parse(raw_value) rescue nil
           when 'Float'
-            Float(raw_value)    rescue 0.0
+            Float(raw_value)    rescue nil
           when 'Integer'
-            Integer(raw_value)  rescue 0
+            Integer(raw_value)  rescue nil
           else
             raw_value.to_s
           end
